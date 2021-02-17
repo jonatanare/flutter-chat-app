@@ -1,8 +1,11 @@
+import 'package:chat_app/helpers/mostar_alerta.dart';
+import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/widgets/boton_azul.dart';
 import 'package:chat_app/widgets/custom_input.dart';
 import 'package:chat_app/widgets/labels.dart';
 import 'package:chat_app/widgets/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -20,7 +23,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Logo(
-                  titulo: 'Messenger',
+                  titulo: 'Iniciar Sesion',
                 ),
                 _Form(),
                 Labels(
@@ -53,6 +56,7 @@ class __FormState extends State<_Form> {
   final passwordCtrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -72,10 +76,22 @@ class __FormState extends State<_Form> {
           ),
           BotonAzul(
               text: 'Ingresar',
-              onPressed: () {
-                print(emailCtrl.text);
-                print(passwordCtrl.text);
-              })
+              onPressed: authService.autenticando
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      final loginOk = await authService.login(
+                          emailCtrl.text.trim(), passwordCtrl.text.trim());
+                      if (loginOk) {
+                        // Conectar a nuestro socket server
+                        // Navegar a otra pantalla
+                        Navigator.pushReplacementNamed(context, 'usuarios');
+                      } else {
+                        // Mostrar alerta
+                        mostrarAlerta(context, 'Login Incorrecto',
+                            'Revice sus credenciales');
+                      }
+                    })
         ],
       ),
     );

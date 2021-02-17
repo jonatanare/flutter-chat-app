@@ -9,18 +9,18 @@ class Logo extends StatelessWidget {
     return Center(
       child: Container(
         margin: EdgeInsets.only(top: 50),
-        width: 170,
+        width: 340,
         child: Column(
           children: [
             Image(
-              image: AssetImage('assets/tag-logo.png'),
+              image: AssetImage('assets/moto-logo.png'),
             ),
             SizedBox(
               height: 20,
             ),
             Text(
               this.titulo,
-              style: TextStyle(fontSize: 30),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             ),
           ],
         ),
