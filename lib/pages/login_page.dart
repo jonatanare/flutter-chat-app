@@ -1,5 +1,6 @@
 import 'package:chat_app/helpers/mostar_alerta.dart';
 import 'package:chat_app/services/auth_service.dart';
+import 'package:chat_app/services/socket_service.dart';
 import 'package:chat_app/widgets/boton_azul.dart';
 import 'package:chat_app/widgets/custom_input.dart';
 import 'package:chat_app/widgets/labels.dart';
@@ -57,6 +58,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -84,6 +86,7 @@ class __FormState extends State<_Form> {
                           emailCtrl.text.trim(), passwordCtrl.text.trim());
                       if (loginOk) {
                         // Conectar a nuestro socket server
+                        socketService.connect();
                         // Navegar a otra pantalla
                         Navigator.pushReplacementNamed(context, 'usuarios');
                       } else {

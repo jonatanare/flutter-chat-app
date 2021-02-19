@@ -52,7 +52,7 @@ class AuthService with ChangeNotifier {
     if (resp.statusCode == 200) {
       final loginResponse = loginResponseFromJson(resp.body);
       this.usuario = loginResponse.usuario;
-      // TODO: Guardar token en lugar seguro
+      // Guardar token en lugar seguro
       await this._guardarToken(loginResponse.token);
 
       return true;
@@ -81,7 +81,7 @@ class AuthService with ChangeNotifier {
     if (resp.statusCode == 200) {
       final loginResponse = loginResponseFromJson(resp.body);
       this.usuario = loginResponse.usuario;
-      // TODO: Guardar token en lugar seguro
+      // Guardar token en lugar seguro
       await this._guardarToken(loginResponse.token);
 
       return true;
@@ -105,7 +105,7 @@ class AuthService with ChangeNotifier {
     if (resp.statusCode == 200) {
       final loginResponse = loginResponseFromJson(resp.body);
       this.usuario = loginResponse.usuario;
-      // TODO: Guardar token en lugar seguro
+      // Guardar token en lugar seguro
       await this._guardarToken(loginResponse.token);
 
       return true;
